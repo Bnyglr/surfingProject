@@ -2,7 +2,7 @@ import React from 'react';
 import { VStack, StackDivider, HStack, Text, Spacer, IconButton, Badge } from '@chakra-ui/react';
 import { FaTrash } from "react-icons/fa";
 
-const TodoList = ({todos, deleteTodo}) => {
+const TodoList = ({editMode,todos, deleteTodo}) => {
   if(!todos.length) {
     return(
       <Badge colorScheme='cyan' p='4' borderRadius='lg'>
@@ -17,7 +17,7 @@ const TodoList = ({todos, deleteTodo}) => {
         <HStack key={todo.id}>
           <Text>{todo.body}</Text>
           <Spacer />
-          <IconButton icon={<FaTrash />} isRound='true' onClick={() => deleteTodo(todo.id)} />
+          {editMode?<IconButton icon={<FaTrash />} isRound='true' onClick={() => deleteTodo(todo.id)} />:null}
         </HStack>
       ))}
     </VStack>

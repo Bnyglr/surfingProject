@@ -4,14 +4,15 @@ import { nanoid } from 'nanoid';
 
 const AddTodo = ({addTodo}) => {
   const [content, setContent] = useState('');
+  const [title, setTitle] = useState('');
   const toast = useToast();
   
   function handleSubmit(e) {
     e.preventDefault();
 
-    if(!content) {
+    if(!content || !title) {
       toast({
-        title: 'No content',
+        title: 'No content or title',
         status: 'error',
         duration: 2000,
         isClosable: true
@@ -20,20 +21,21 @@ const AddTodo = ({addTodo}) => {
       return;
     }
 
-    const todo = {
+    const article = {
       id: nanoid(),
       body: content
     };
 
-    addTodo(todo);
+    addTodo(article);
     setContent('');
   }
   
   return (
     <form onSubmit={handleSubmit}>
       <HStack mt='8'>
-        <Input variant='filled' placeholder='Learning React' value={content} onChange={(e) => setContent(e.target.value)} />
-        <Button type='submit' colorScheme='cyan' px='8'>Add Todo</Button>
+        <Input variant='filled' placeholder='Enter title' value={title} onChange={(e) => setTitle(e.target.value)} />
+        <Input variant='filled' placeholder='Enter your thought' value={content} onChange={(e) => setContent(e.target.value)} />
+        <Button type='submit' colorScheme='cyan' px='8'>Publish yor paragraph</Button>
       </HStack>
     </form>
   );
