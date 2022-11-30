@@ -1,32 +1,63 @@
 import React from 'react'
 import { VStack, IconButton, Box, Heading, useColorMode, flexbox, Editable, } from '@chakra-ui/react';
 import { FaSun, FaMoon, FaRegEdit, FaEye } from "react-icons/fa";
-import TodoList from './TodoList';
+import ArticlesList from './ArticlesList';
 import AddTodo from './AddTodo';
 import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 function Main() {
-    const [todos, setTodos] = useState(() => JSON.parse(localStorage.getItem('todos')) || []);
+    const [articles, setArticles] = useState(() => JSON.parse(localStorage.getItem('articles')) || []);
     const [editMode, setEditMode]=useState(false)
     
       useEffect(() => {
-        localStorage.setItem('todos', JSON.stringify(todos));
-      }, [todos]);
+        const fetchArticles = async () => {
+          try {
+            const response = await axios.get(
+              "http://localhost:3001/api/users/getAllUserArticles",
+              {
+                headers: {
+                  Authorization:`bearer ${localStorage.token}`
+                }
+              }
+              );
+              // localStorage.setItem('articles', JSON.stringify(articles));
+              setArticles(response.data);
+            console.log(response.data)
+          } catch (e) {
+            console.log(e);
+          }
+        }
+        fetchArticles();
+  
+       
+      }, []);
     
     const handleEditMode=()=>{
       setEditMode(!editMode)
     }
     
-      function deleteTodo(id) {
-        const newTodos = todos.filter((todo) => {
-          return todo.id !== id;
-        });
+    async function deleteArticle(id) {
+        try {
+          const response = await axios.get(
+            "http://localhost:3001/api/articles/del",
+            {
+              headers: {
+                Authorization:`bearer ${localStorage.token}`
+              }
+            }
+            );
+            // localStorage.setItem('articles', JSON.stringify(articles));
+            setArticles(response.data);
+          console.log(response.data)
+        } catch (e) {
+          console.log(e);
+        }
     
-        setTodos(newTodos);
       }
     
       function addTodo(todo) {
-        setTodos([...todos, todo]);
+        setArticles([...articles, todo]);
       }
     
       const {colorMode, toggleColorMode} = useColorMode();
@@ -44,7 +75,7 @@ function Main() {
           {editMode?<AddTodo addTodo={addTodo} />:null
           
         }
-        <TodoList editMode={editMode}todos={todos} deleteTodo={deleteTodo} />
+        <ArticlesList editMode={editMode} articles={articles} deleteArticle={deleteArticle} />
     
         </VStack>
       );
