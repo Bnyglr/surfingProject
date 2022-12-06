@@ -17,22 +17,38 @@ function Auth({setIsLogged}) {
 
   const onSubmit = async (e) => {
      e.preventDefault();
-
+    if(authMode==="signin"){
       try {
         const response = await axios.post(
           "http://localhost:3001/api/users/login",
+          {
+            email: email,
+            password: password,
+          }
+          );
+          console.log(response.data)
+          localStorage.token = response.data.token;
+          setIsLogged(response.data.token);
+          
+        } catch (e) {
+          console.log(e);
+        }
+      }else{
+        try{
+        const response = await axios.post(
+          "http://localhost:3001/api/users/register",
           {
             fullName: fullName,
             email: email,
             password: password,
           }
           );
-        console.log(response.data)
-        localStorage.token = response.data.token;
-        setIsLogged(response.data.token);
-
-      } catch (e) {
-        console.log(e);
+          console.log(response.data)
+          localStorage.token = response.data.token;
+          setIsLogged(response.data.token);
+        } catch (e) {
+          console.log(e);
+        }
       }
 
   };
