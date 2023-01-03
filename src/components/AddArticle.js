@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Input, Button, useToast } from '@chakra-ui/react';
 import { nanoid } from 'nanoid';
 
+
 const AddArticle = ({createArticle}) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');

@@ -1,6 +1,6 @@
 {
-  "homepage": "https://dumindapriyasad.github.io/todo-app",
-  "name": "todo-app",
+  "homepage": "https://dumindapriyasad.github.io/main-app",
+  "name": "main",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

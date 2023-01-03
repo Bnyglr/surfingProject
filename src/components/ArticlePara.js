@@ -1,8 +1,8 @@
 import React from 'react'
 
-function ArticlePara() {
+function ArticlePara({para}) {
   return (
-    <div>ArticleParaShow</div>
+    <div>{para}</div>
   )
 }
 

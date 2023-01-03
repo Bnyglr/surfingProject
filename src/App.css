@@ -1,7 +1,15 @@
-.App {
-    background-color: white;
-  }
+
   
+ 
+.mainContainer{
+  background-image: url("/src/Images/pexels-jess-loiterton-5232457.jpg"); 
+  background-size: cover;
+} */
+
+Auth {
+  display: flex;
+  justify-content: center;
+}
   .Auth-form-container {
     display: flex;
     justify-content: center;
